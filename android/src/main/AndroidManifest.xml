@@ -1,0 +1,15 @@
+
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools"
+          package="br.com.eightsystems.rnstone" android:installLocation="preferExternal">
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
+    <application tools:replace="android:allowBackup" android:allowBackup="false">
+        <receiver android:name=".RNStoneMposReactNativeModule$PairingRequest">
+            <intent-filter>
+                <action android:name="android.bluetooth.device.action.BOND_STATE_CHANGED" />
+            </intent-filter>
+        </receiver>
+    </application>
+</manifest>
