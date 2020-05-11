@@ -120,8 +120,21 @@ public class RNStoneMposReactNativeModule extends ReactContextBaseJavaModule {
         try {
             StoneStart.init(this.reactContext);
             Stone.setAppName(appName);
-            Stone.setEnvironment(Environment.valueOf(environment));
 
+            if ( !environment.isEmpty() ) {
+                Stone.setEnvironment(Environment.valueOf(environment));
+            }
+
+            promise.resolve(true);
+        } catch(Exception e) {
+            promise.reject(e);
+        }
+    }
+
+    @ReactMethod
+    public void setEnvironment(String environment, final Promise promise) {
+        try {
+            Stone.setEnvironment(Environment.valueOf(environment));
             promise.resolve(true);
         } catch(Exception e) {
             promise.reject(e);
@@ -518,7 +531,7 @@ public class RNStoneMposReactNativeModule extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void makeTransaction(ReadableMap transactionSetup, String successMessage, final Promise promise) {
+    public void makeTransaction(ReadableMap transactionSetup, final Promise promise) {
         if ( isSDKInitializedPromise(promise) ) {
 
             if (!Stone.isConnectedToPinpad()) {
